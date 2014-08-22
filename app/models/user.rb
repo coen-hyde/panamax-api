@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   EMAIL_SCOPES = %w(user user:email)
+  GITHUB_RESULTS_PER_PAGE = 100
 
   MUTEX = Mutex.new
 
@@ -58,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def github_client
-    @github_client ||= Octokit::Client.new(access_token: github_access_token)
+    @github_client ||= Octokit::Client.new(access_token: github_access_token, per_page: GITHUB_RESULTS_PER_PAGE)
   end
 
   def mailchimp_client
